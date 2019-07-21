@@ -2,17 +2,21 @@ namespace MyLang.CodeAnalysis
 {
     public enum SyntaxKind
     {
-        NumberToken,
+        // Tokens
+        BadToken,
+        EndOfFileToken,
         WhiteSpaceToken,
+        NumberToken,
+        OpenParenthesisToken,
+        CloseParenthesisToken,
         PlusToken,
         MinusToken,
         StarToken,
         SlashToken,
-        OpenParenthesisToken,
-        CloseParenthesisToken,
-        BadToken,
-        EndOfFileToken,
+        
+        // Expressions
         BinaryExpression,
-        ParenthesizedExpression
+        ParenthesizedExpression,
+        LiteralToken
     }
 }

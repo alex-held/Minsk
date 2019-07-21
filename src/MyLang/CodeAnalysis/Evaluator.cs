@@ -16,7 +16,7 @@ namespace MyLang.CodeAnalysis
         private int EvaluateExpression(ExpressionSyntax node)
         {
             // <NumberExpression>
-            if (node is NumberExpressionSyntax n)
+            if (node is LiteralExpressionSyntax n)
                 return (int) n.NumberToken.Value;
 
             // <BinaryExpression>
