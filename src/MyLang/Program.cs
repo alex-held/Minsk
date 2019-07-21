@@ -19,7 +19,7 @@ namespace MyLang
 
                 switch (line)
                 {
-                    case "#showTree":
+                    case "#tree":
                         showTree = !showTree;
                         Console.WriteLine(showTree
                                               ? "SyntaxTree visualization enabled"
