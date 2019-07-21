@@ -18,7 +18,7 @@ namespace MyLang.CodeAnalysis
 
         private void Next() => _position++;
 
-        public SyntaxToken NextToken()
+        public SyntaxToken Lex()
         {
             // EOF
             // <numbers>
@@ -64,19 +64,21 @@ namespace MyLang.CodeAnalysis
             }
 
             // <operands>
-            if (Current == '+')
-                return new SyntaxToken(SyntaxKind.PlusToken, _position++, "+", null);
-            if (Current == '-')
-                return new SyntaxToken(SyntaxKind.MinusToken, _position++, "-", null);
-            if (Current == '*')
-                return new SyntaxToken(SyntaxKind.StarToken, _position++, "*", null);
-            if (Current == '/')
-                return new SyntaxToken(SyntaxKind.SlashToken, _position++, "/", null);
-            if (Current == '(')
-                return new SyntaxToken(SyntaxKind.OpenParenthesisToken, _position++, "(", null);
-            if (Current == ')')
-                return new SyntaxToken(SyntaxKind.CloseParenthesisToken, _position++, ")", null);
-
+            switch (Current)
+            {
+                case '+':
+                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, "+", null);
+                case '-': 
+                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, "-", null);
+                case '*': 
+                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, "*", null);
+                case '/': 
+                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, "/", null);
+                case '(': 
+                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, "(", null);
+                case ')': 
+                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, ")", null);
+            }
 
             // We found a token that we don't know
             Diagnostics.Add($"ERROR: bad character input: '{Current}'");
