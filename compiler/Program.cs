@@ -17,25 +17,25 @@ namespace compiler
                     return;
 
                 var parser = new Parser(line);
-                var expression = parser.Parse();
+                var syntaxTree = parser.Parse();
 
                 var color = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                PrettyPrint(expression);
+                PrettyPrint(syntaxTree.Root);
                 Console.ForegroundColor = color;
 
-                if (parser.Diagnostics.Any())
+                if (syntaxTree.Diagnostics.Any())
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
-                    
-                    foreach (var diagnostic in parser.Diagnostics)
+
+                    foreach (var diagnostic in syntaxTree.Diagnostics)
                         Console.WriteLine(diagnostic);
-                    
+
                     Console.ForegroundColor = color;
                 }
             }
         }
-
+ 
 
         static void PrettyPrint(SyntaxNode node, string indent = "", bool isLast = true)
         {
@@ -127,7 +127,15 @@ namespace compiler
             return new SyntaxToken(kind, Current.Position, null, null);
         }
         
-        public ExpressionSyntax Parse()
+        public SyntaxTree Parse()
+        {
+            var expression = ParseExpression();
+            var endOfFileToken = Match(SyntaxKind.EndOfFileToken);
+            
+            return new SyntaxTree(_diagnostics, expression, endOfFileToken);
+        }
+
+        private ExpressionSyntax ParseExpression()
         {
             var left = ParsePrimaryExpression();
 
@@ -137,7 +145,7 @@ namespace compiler
                 var right = ParsePrimaryExpression();
                 left = new BinaryExpressionSyntax(left, operatorToken, right);
             }
-
+            
             return left;
         }
 
@@ -152,7 +160,6 @@ namespace compiler
     public class Lexer
     {
         private readonly string _text;
-
         private int _position;
         private List<string> _diagnostics = new List<string>();
 
@@ -308,6 +315,20 @@ namespace compiler
             yield return Left;
             yield return OperatorToken;
             yield return Right;
+        }
+    }
+
+    public sealed class SyntaxTree
+    {
+        public IReadOnlyList<string> Diagnostics { get; }
+        public ExpressionSyntax Root { get; }
+        public SyntaxToken EndOfFileToken { get; }
+
+        public SyntaxTree(IEnumerable<string> diagnostics, ExpressionSyntax root, SyntaxToken endOfFileToken)
+        {
+            Diagnostics = diagnostics.ToArray();
+            Root = root;
+            EndOfFileToken = endOfFileToken;
         }
     }
 }
