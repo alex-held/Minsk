@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace MyLang.CodeAnalysis
@@ -69,7 +68,17 @@ namespace MyLang.CodeAnalysis
 
         private ExpressionSyntax ParseExpression(int parentPrecedence = 0)
         {
-            var left = ParsePrimaryExpression();
+            ExpressionSyntax left;
+            var unaryOperatorPrecedence = Current.Kind.GetUnaryOperatorPrecedence();
+            
+            if (unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentPrecedence)
+            {
+                var operatorToken = NextToken();
+                var operand = ParseExpression(unaryOperatorPrecedence);
+                left = new UnaryExpressionSyntax(operatorToken, operand);
+            }
+            else
+                left = ParsePrimaryExpression();
 
             while (true)
             {
@@ -85,8 +94,6 @@ namespace MyLang.CodeAnalysis
             return left;
         }
 
-        
-        
         private ExpressionSyntax ParsePrimaryExpression()
         {
             if (Current.Kind == SyntaxKind.OpenParenthesisToken)

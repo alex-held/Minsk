@@ -22,5 +22,23 @@ namespace MyLang.CodeAnalysis {
                     return 0;
             }
         }
+        
+        /// <summary>
+        /// Gets the operator precedence for a given <see cref="SyntaxKind"/>. 
+        /// </summary>
+        /// <returns>The Precedence. 0 if not an operator.</returns>
+        public static int GetUnaryOperatorPrecedence(this SyntaxKind kind)
+        {
+            switch (kind)
+            {
+                case SyntaxKind.PlusToken:
+                case SyntaxKind.MinusToken:
+                    return 3;
+                
+                
+                default:
+                    return 0;
+            }
+        }
     }
 }
