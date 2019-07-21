@@ -1,0 +1,12 @@
+/Users/dev/repos/Minsk/compiler/bin/Debug/netcoreapp3.0/compiler
+/Users/dev/repos/Minsk/compiler/bin/Debug/netcoreapp3.0/compiler.deps.json
+/Users/dev/repos/Minsk/compiler/bin/Debug/netcoreapp3.0/compiler.runtimeconfig.json
+/Users/dev/repos/Minsk/compiler/bin/Debug/netcoreapp3.0/compiler.runtimeconfig.dev.json
+/Users/dev/repos/Minsk/compiler/bin/Debug/netcoreapp3.0/compiler.dll
+/Users/dev/repos/Minsk/compiler/bin/Debug/netcoreapp3.0/compiler.pdb
+/Users/dev/repos/Minsk/compiler/obj/Debug/netcoreapp3.0/compiler.csprojAssemblyReference.cache
+/Users/dev/repos/Minsk/compiler/obj/Debug/netcoreapp3.0/compiler.csproj.CoreCompileInputs.cache
+/Users/dev/repos/Minsk/compiler/obj/Debug/netcoreapp3.0/compiler.AssemblyInfoInputs.cache
+/Users/dev/repos/Minsk/compiler/obj/Debug/netcoreapp3.0/compiler.AssemblyInfo.cs
+/Users/dev/repos/Minsk/compiler/obj/Debug/netcoreapp3.0/compiler.dll
+/Users/dev/repos/Minsk/compiler/obj/Debug/netcoreapp3.0/compiler.pdb
