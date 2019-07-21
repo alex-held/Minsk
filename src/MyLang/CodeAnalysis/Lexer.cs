@@ -69,15 +69,15 @@ namespace MyLang.CodeAnalysis
                 case '+':
                     return new SyntaxToken(SyntaxKind.PlusToken, _position++, "+", null);
                 case '-': 
-                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, "-", null);
+                    return new SyntaxToken(SyntaxKind.MinusToken, _position++, "-", null);
                 case '*': 
-                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, "*", null);
+                    return new SyntaxToken(SyntaxKind.StarToken, _position++, "*", null);
                 case '/': 
-                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, "/", null);
+                    return new SyntaxToken(SyntaxKind.SlashToken, _position++, "/", null);
                 case '(': 
-                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, "(", null);
+                    return new SyntaxToken(SyntaxKind.OpenParenthesisToken, _position++, "(", null);
                 case ')': 
-                    return new SyntaxToken(SyntaxKind.PlusToken, _position++, ")", null);
+                    return new SyntaxToken(SyntaxKind.CloseParenthesisToken, _position++, ")", null);
             }
 
             // We found a token that we don't know

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace MyLang.CodeAnalysis
@@ -50,7 +51,7 @@ namespace MyLang.CodeAnalysis
             return current;
         }
 
-        private SyntaxToken MatchToken(SyntaxKind kind)
+        private SyntaxToken MatchToken(SyntaxKind kind) 
         {
             if (Current.Kind == kind) return NextToken();
 
@@ -66,38 +67,46 @@ namespace MyLang.CodeAnalysis
             return new SyntaxTree(Diagnostics, expression, endOfFileToken);
         }
 
-        private ExpressionSyntax ParseExpression() => ParseTerm();
-
-        private ExpressionSyntax ParseTerm()
-        {
-            var left = ParseFactor();
-
-            while (Current.Kind == SyntaxKind.PlusToken ||
-                   Current.Kind == SyntaxKind.MinusToken)
-            {
-                var operatorToken = NextToken();
-                var right = ParseFactor();
-                left = new BinaryExpressionSyntax(left, operatorToken, right);
-            }
-
-            return left;
-        }
-
-        private ExpressionSyntax ParseFactor()
+        private ExpressionSyntax ParseExpression(int parentPrecedence = 0)
         {
             var left = ParsePrimaryExpression();
 
-            while (Current.Kind == SyntaxKind.StarToken ||
-                   Current.Kind == SyntaxKind.SlashToken)
+            while (true)
             {
+                var precedence = GetBinaryOperatorPrecedence(Current.Kind);
+                if (precedence == 0 || precedence <= parentPrecedence)
+                    break;
+
                 var operatorToken = NextToken();
-                var right = ParsePrimaryExpression();
+                var right = ParseExpression(precedence);
                 left = new BinaryExpressionSyntax(left, operatorToken, right);
             }
 
             return left;
         }
 
+        /// <summary>
+        /// Gets the operator precedence for a given <see cref="SyntaxKind"/>. 
+        /// </summary>
+        /// <returns>The Precedence. 0 if not an operator.</returns>
+        private static int GetBinaryOperatorPrecedence(SyntaxKind kind)
+        {
+            switch (kind)
+            {
+                case SyntaxKind.StarToken:
+                case SyntaxKind.SlashToken:
+                    return 2;
+                
+                case SyntaxKind.PlusToken:
+                case SyntaxKind.MinusToken:
+                    return 1;
+                
+                
+                default:
+                    return 0;
+            }
+        }
+        
         private ExpressionSyntax ParsePrimaryExpression()
         {
             if (Current.Kind == SyntaxKind.OpenParenthesisToken)
