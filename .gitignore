@@ -26,6 +26,17 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.*.sw[op]
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
 ##########
 # VisualStudio Code
 .vscode/*
@@ -55,6 +66,11 @@ $RECYCLE.BIN/
 mono_crash.*
 
 # Build results
+**/.idea/**
+**/bin/
+**/obj/
+bin
+obj
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
