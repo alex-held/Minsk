@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MyLang.CodeAnalysis
+namespace MyLang.CodeAnalysis.Syntax
 {
     internal sealed class Parser
     {
