@@ -1,4 +1,5 @@
-namespace MyLang.CodeAnalysis {
+namespace MyLang.CodeAnalysis
+{
     public enum SyntaxKind
     {
         NumberToken,

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using MyLang.CodeAnalysis;
 
@@ -7,11 +6,11 @@ namespace MyLang
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var showTree = false;
             var color = Console.ForegroundColor;
-            
+
             while (true)
             {
                 Console.Write("> ");
@@ -19,11 +18,13 @@ namespace MyLang
                 if (string.IsNullOrWhiteSpace(line))
                     return;
 
-                switch (line) 
+                switch (line)
                 {
                     case "#showTree":
                         showTree = !showTree;
-                        Console.WriteLine(showTree ? "SyntaxTree visualization enabled" : "SyntaxTree visualization disabled");
+                        Console.WriteLine(showTree
+                                              ? "SyntaxTree visualization enabled"
+                                              : "SyntaxTree visualization disabled");
                         continue;
                     case "#cls":
                         Console.Clear();
@@ -34,8 +35,8 @@ namespace MyLang
 
                 if (showTree)
                     PrintTree(syntaxTree.Root);
-                
-                
+
+
                 // If there are no diagnostics, we can evaluate the expression.
                 if (!syntaxTree.Diagnostics.Any())
                 {
@@ -46,17 +47,17 @@ namespace MyLang
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
-                    
+
                     foreach (var diagnostic in syntaxTree.Diagnostics)
                         Console.WriteLine(diagnostic);
-                    
+
                     Console.ForegroundColor = color;
                 }
             }
         }
- 
 
-        static void PrintTree(SyntaxNode node, string indent = "", bool isLast = true)
+
+        private static void PrintTree(SyntaxNode node, string indent = "", bool isLast = true)
         {
             // ├──
             // └──
@@ -64,9 +65,9 @@ namespace MyLang
 
             var color = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            
+
             var marker = isLast ? "└──" : "├──";
-            
+
             Console.Write(indent);
             Console.Write(marker);
             Console.Write(node.Kind);
@@ -83,14 +84,11 @@ namespace MyLang
             indent += isLast ? "    " : "|   ";
 
             var lastChild = node.GetChildren().LastOrDefault();
-            
+
             foreach (var child in node.GetChildren())
                 PrintTree(child, indent, child == lastChild);
-            
+
             Console.ForegroundColor = color;
         }
     }
-
-
-   
 }

@@ -1,16 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyLang.CodeAnalysis {
+namespace MyLang.CodeAnalysis
+{
     public class SyntaxToken : SyntaxNode
     {
-        public override SyntaxKind Kind { get; }
-        public override IEnumerable<SyntaxNode> GetChildren() => Enumerable.Empty<SyntaxNode>();
-
-        public int Position { get; }
-        public string Text { get; }
-        public object Value { get; }
-
         public SyntaxToken(SyntaxKind kind, int position, string text, object value)
         {
             Kind = kind;
@@ -18,5 +12,12 @@ namespace MyLang.CodeAnalysis {
             Text = text;
             Value = value;
         }
+
+        public override SyntaxKind Kind { get; }
+
+        public int Position { get; }
+        public string Text { get; }
+        public object Value { get; }
+        public override IEnumerable<SyntaxNode> GetChildren() => Enumerable.Empty<SyntaxNode>();
     }
 }

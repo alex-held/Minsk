@@ -1,6 +1,7 @@
 using System;
 
-namespace MyLang.CodeAnalysis {
+namespace MyLang.CodeAnalysis
+{
     public class Evaluator
     {
         private readonly ExpressionSyntax _root;
@@ -10,10 +11,7 @@ namespace MyLang.CodeAnalysis {
             _root = root;
         }
 
-        public int Evaluate()
-        {
-            return EvaluateExpression(_root);
-        }
+        public int Evaluate() => EvaluateExpression(_root);
 
         private int EvaluateExpression(ExpressionSyntax node)
         {
@@ -29,19 +27,18 @@ namespace MyLang.CodeAnalysis {
 
                 if (b.OperatorToken.Kind == SyntaxKind.PlusToken)
                     return left + right;
-                else if (b.OperatorToken.Kind == SyntaxKind.MinusToken)
+                if (b.OperatorToken.Kind == SyntaxKind.MinusToken)
                     return left - right;
-                else if (b.OperatorToken.Kind == SyntaxKind.StarToken)
+                if (b.OperatorToken.Kind == SyntaxKind.StarToken)
                     return left * right;
-                else if (b.OperatorToken.Kind == SyntaxKind.SlashToken)
+                if (b.OperatorToken.Kind == SyntaxKind.SlashToken)
                     return left / right;
-                else
-                    throw new Exception($"Unexpected binary operator found. {b.OperatorToken.Kind}");
+                throw new Exception($"Unexpected binary operator found. {b.OperatorToken.Kind}");
             }
 
             if (node is ParenthesizedExpressionSyntax p)
                 return EvaluateExpression(p.Expression);
-            
+
             throw new Exception($"Unexpected node found. {node.Kind}");
         }
     }

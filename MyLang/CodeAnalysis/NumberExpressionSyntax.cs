@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 
-namespace MyLang.CodeAnalysis {
+namespace MyLang.CodeAnalysis
+{
     public sealed class NumberExpressionSyntax : ExpressionSyntax
     {
-        public SyntaxToken NumberToken { get; }
-
         public NumberExpressionSyntax(SyntaxToken numberToken)
         {
             NumberToken = numberToken;
         }
+
+        public SyntaxToken NumberToken { get; }
 
         public override SyntaxKind Kind => SyntaxKind.NumberToken;
 

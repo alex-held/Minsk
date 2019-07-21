@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
-namespace MyLang.CodeAnalysis {
+namespace MyLang.CodeAnalysis
+{
     public abstract class SyntaxNode
     {
         public abstract SyntaxKind Kind { get; }
