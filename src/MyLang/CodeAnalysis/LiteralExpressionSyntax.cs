@@ -4,18 +4,18 @@ namespace MyLang.CodeAnalysis
 {
     public sealed class LiteralExpressionSyntax : ExpressionSyntax
     {
-        public LiteralExpressionSyntax(SyntaxToken literalToken)
+        public LiteralExpressionSyntax(SyntaxToken numberToken)
         {
-            LiteralToken = literalToken;
+            NumberToken = numberToken;
         }
 
-        public SyntaxToken LiteralToken { get; }
+        public SyntaxToken NumberToken { get; }
 
         public override SyntaxKind Kind => SyntaxKind.LiteralToken;
 
         public override IEnumerable<SyntaxNode> GetChildren()
         {
-            yield return LiteralToken;
+            yield return NumberToken;
         }
     }
 }
