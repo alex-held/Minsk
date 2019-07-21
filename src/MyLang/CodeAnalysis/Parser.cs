@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace MyLang.CodeAnalysis
 {
-    public class Parser
+    internal sealed class Parser
     {
         private int _position;
         private readonly SyntaxToken[] _tokens;
