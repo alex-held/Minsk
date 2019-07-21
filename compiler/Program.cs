@@ -184,4 +184,20 @@ namespace compiler
     {
         public abstract SyntaxKind Kind { get; }
     }
+
+    public abstract class ExpressionSyntax : SyntaxNode
+    {
+    }
+
+    public sealed class NumberSyntax : ExpressionSyntax
+    {
+        public SyntaxToken NumberToken { get; }
+
+        public NumberSyntax(SyntaxToken numberToken)
+        {
+            NumberToken = numberToken;
+        }
+
+        public override SyntaxKind Kind => SyntaxKind.NumberToken;
+    }
 }
