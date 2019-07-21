@@ -21,9 +21,18 @@ namespace compiler
 
                 var color = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                
                 PrettyPrint(expression);
                 Console.ForegroundColor = color;
+
+                if (parser.Diagnostics.Any())
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    
+                    foreach (var diagnostic in parser.Diagnostics)
+                        Console.WriteLine(diagnostic);
+                    
+                    Console.ForegroundColor = color;
+                }
             }
         }
 
@@ -33,7 +42,6 @@ namespace compiler
             // ├──
             
             // └──
-            
             // │   └──
 
             var marker = isLast ? "└──" : "├──";
@@ -115,6 +123,7 @@ namespace compiler
         {
             if (Current.Kind == kind) return NextToken();
             
+            _diagnostics.Add($"ERROR: Unexpected token <{Current.Kind}>, expected <{kind}>");
             return new SyntaxToken(kind, Current.Position, null, null);
         }
         
@@ -126,7 +135,6 @@ namespace compiler
             {
                 var operatorToken = NextToken();
                 var right = ParsePrimaryExpression();
-                
                 left = new BinaryExpressionSyntax(left, operatorToken, right);
             }
 
