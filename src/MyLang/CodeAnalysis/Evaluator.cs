@@ -17,11 +17,7 @@ namespace MyLang.CodeAnalysis
         {
             // <NumberExpression>
             if (node is LiteralExpressionSyntax n)
-<<<<<<< HEAD
                 return (int) n.LiteralToken.Value;
-=======
-                return (int) n.NumberToken.Value;
->>>>>>> 87003e657047ba372f2fe7f4ee564279b23b3adc
 
             // <BinaryExpression>
             if (node is BinaryExpressionSyntax b)
