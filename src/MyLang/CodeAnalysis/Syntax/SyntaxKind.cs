@@ -17,7 +17,7 @@ namespace MyLang.CodeAnalysis.Syntax
         // Expressions
         BinaryExpression,
         ParenthesizedExpression,
-        LiteralToken,
+        LiteralExpression,
         UnaryExpression
     }
 }

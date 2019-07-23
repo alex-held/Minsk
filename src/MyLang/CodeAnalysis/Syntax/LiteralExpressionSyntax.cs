@@ -11,7 +11,7 @@ namespace MyLang.CodeAnalysis.Syntax
 
         public SyntaxToken LiteralToken { get; }
 
-        public override SyntaxKind Kind => SyntaxKind.LiteralToken;
+        public override SyntaxKind Kind => SyntaxKind.LiteralExpression;
 
         public override IEnumerable<SyntaxNode> GetChildren()
         {
