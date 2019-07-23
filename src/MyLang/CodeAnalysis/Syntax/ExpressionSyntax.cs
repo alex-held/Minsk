@@ -1,4 +1,4 @@
-namespace MyLang.CodeAnalysis
+namespace MyLang.CodeAnalysis.Syntax
 {
     public abstract class ExpressionSyntax : SyntaxNode { }
 }

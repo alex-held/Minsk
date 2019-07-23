@@ -1,4 +1,5 @@
 using System;
+using MyLang.CodeAnalysis.Syntax;
 
 namespace MyLang.CodeAnalysis
 {
@@ -16,9 +17,21 @@ namespace MyLang.CodeAnalysis
         private int EvaluateExpression(ExpressionSyntax node)
         {
             // <NumberExpression>
-            if (node is NumberExpressionSyntax n)
-                return (int) n.NumberToken.Value;
-
+            if (node is LiteralExpressionSyntax n)
+                return (int) n.LiteralToken.Value;
+ 
+            if (node is UnaryExpressionSyntax u)
+            {
+                var operand = EvaluateExpression(u.Operand);
+                
+                if (u.OperatorToken.Kind == SyntaxKind.PlusToken)
+                    return operand;
+                if (u.OperatorToken.Kind == SyntaxKind.MinusToken)
+                    return -operand;
+                
+                throw new Exception($"Unexpected unary operator found. {u.OperatorToken.Kind}");
+            }
+                    
             // <BinaryExpression>
             if (node is BinaryExpressionSyntax b)
             {

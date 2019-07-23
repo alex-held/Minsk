@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyLang.CodeAnalysis
+namespace MyLang.CodeAnalysis.Syntax
 {
     public class SyntaxToken : SyntaxNode
     {

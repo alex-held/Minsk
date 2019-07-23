@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using MyLang.CodeAnalysis;
+using MyLang.CodeAnalysis.Syntax;
 
 namespace MyLang
 {
-    class Program
+    internal static class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             var showTree = false;
-            var color = Console.ForegroundColor;
 
             while (true)
             {
@@ -20,7 +20,7 @@ namespace MyLang
 
                 switch (line)
                 {
-                    case "#showTree":
+                    case "#tree":
                         showTree = !showTree;
                         Console.WriteLine(showTree
                                               ? "SyntaxTree visualization enabled"
@@ -34,7 +34,7 @@ namespace MyLang
                 var syntaxTree = SyntaxTree.Parse(line);
 
                 if (showTree)
-                    PrintTree(syntaxTree.Root);
+                    VisualizeTree(syntaxTree.Root);
 
 
                 // If there are no diagnostics, we can evaluate the expression.
@@ -47,23 +47,18 @@ namespace MyLang
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
-
+                    
                     foreach (var diagnostic in syntaxTree.Diagnostics)
                         Console.WriteLine(diagnostic);
 
-                    Console.ForegroundColor = color;
+                    Console.ResetColor();
                 }
             }
         }
 
 
-        private static void PrintTree(SyntaxNode node, string indent = "", bool isLast = true)
+        private static void VisualizeTree(SyntaxNode node, string indent = "", bool isLast = true)
         {
-            // ├──
-            // └──
-            // │   └──
-
-            var color = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
 
             var marker = isLast ? "└──" : "├──";
@@ -81,14 +76,14 @@ namespace MyLang
             Console.WriteLine();
 
 
-            indent += isLast ? "    " : "|   ";
+            indent += isLast ? "   " : "|   ";
 
             var lastChild = node.GetChildren().LastOrDefault();
 
             foreach (var child in node.GetChildren())
-                PrintTree(child, indent, child == lastChild);
+                VisualizeTree(child, indent, child == lastChild);
 
-            Console.ForegroundColor = color;
+            Console.ResetColor();
         }
     }
 }
